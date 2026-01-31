@@ -1,0 +1,12 @@
+{
+    "name": "mohns/clinic_app",
+    "description": "Simple PHP project using Composer",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Mohns\\ClinicApp\\": "app/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {}
+}
