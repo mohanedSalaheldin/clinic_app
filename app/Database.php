@@ -36,7 +36,3 @@ class Database
         return $this->connection;
     }
 }
-
-
-//comment
-// comment for mohaned

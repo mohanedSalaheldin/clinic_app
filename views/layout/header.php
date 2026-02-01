@@ -1,22 +1,30 @@
 <?php session_start(); ?>
-
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./assets/styles/pages/main.css">
+    <title><?= $title ?? 'VCare' ?></title>
+    <style>
+       
+        .bg-blue {
+            background-color: #007bff !important;
+        }
 
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.1/css/bootstrap.min.css">
+        .text-blue {
+            color: #007bff !important;
+        }
 
-    <link rel="stylesheet" href="/assets/styles/pages/main.css">
-
-
-    <title><?= $title ?? 'Clinic App' ?></title>
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+    </style>
 </head>
 
-<body>
-    <div class="page-wrapper">
-
-    <h1>HEADER</h1>
+<body class="bg-light">
+    <div class="wrapper d-flex flex-column min-vh-100">
