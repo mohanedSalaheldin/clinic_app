@@ -7,7 +7,7 @@ use PDOException;
 
 class Database
 {
-    private static Database $instance;
+    private static ?Database $instance = null;
     private $connection;
 
     public function __construct(array $config)
@@ -15,7 +15,7 @@ class Database
 
         try {
 
-            $dns = "mysql.host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
+            $dns = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
             $this->connection = new PDO($dns, $config['username'], $config['password']);
             $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         } catch (PDOException $e) {

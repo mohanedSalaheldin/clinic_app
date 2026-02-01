@@ -2,7 +2,7 @@
     
     $config = [
         "host" => "localhost",
-        "dbname" => "-", // waiting for risk name
+        "dbname" => "clinic",
         "username" => "root",
         "password" => "",
     ];
