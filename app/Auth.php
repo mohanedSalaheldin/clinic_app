@@ -48,11 +48,17 @@ class Auth
     {
         return $_SESSION['user'] ?? null;
     }
-
+    
     public function logout(): void
     {
-        unset($_SESSION['user']);
-        session_destroy();
+        $_SESSION = [];
+
+
+        if (session_id()) {
+            session_destroy();
+        }
+
+
         header("Location: index.php?route=login");
         exit;
     }
