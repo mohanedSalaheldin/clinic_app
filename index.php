@@ -1,19 +1,19 @@
 <?php
-
+session_start();
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config.php";
 
 use App\Database;
-use App\Controllers\AuthController; // استيراد الكنترولر
+use App\Controllers\AuthController; 
 
 $db = Database::getInstance($config);
 
-// إنشاء نسخة من الكنترولر لتجهيزها للاستخدام
+
 $authController = new AuthController($db);
 
 $route = $_GET['route'] ?? 'home';
 
-// مصفوفة لتحديد الصفحات التي لا تحتاج للكنترولر (Static Views)
+
 $page = "";
 
 switch ($route) {
@@ -47,7 +47,7 @@ switch ($route) {
 
     case 'logout':
         $authController->logout();
-        exit;
+        break;
 
     case 'history':
         $page = "views/history.php";

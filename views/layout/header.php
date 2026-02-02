@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +8,6 @@
     <link rel="stylesheet" href="./assets/styles/pages/main.css">
     <title><?= $title ?? 'VCare' ?></title>
     <style>
-       
         .bg-blue {
             background-color: #007bff !important;
         }
