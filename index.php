@@ -18,31 +18,31 @@ $page = "";
 
 switch ($route) {
     case 'home':
-        $page = "views/home.php";
+        $page = "views/front/home.php";
         break;
     case 'majors':
-        $page = "views/majors.php";
+        $page = "views/front/majors.php";
         break;
     case 'doctors':
-        $page = "views/doctors.php";
+        $page = "views/front/doctors.php";
         break;
     case 'contact':
-        $page = "views/contact.php";
+        $page = "views/front/contact.php";
         break;
 
 
     case 'register':
-        require_once __DIR__ . "/views/layout/header.php";
-        require_once __DIR__ . "/views/layout/navbar.php";
+        require_once __DIR__ . "/views/front/layout/header.php";
+        require_once __DIR__ . "/views/front/layout/navbar.php";
         $authController->register();
-        require_once __DIR__ . "/views/layout/footer.php";
+        require_once __DIR__ . "/views/front/layout/footer.php";
         exit;
 
     case 'login':
-        require_once __DIR__ . "/views/layout/header.php";
-        require_once __DIR__ . "/views/layout/navbar.php";
+        require_once __DIR__ . "/views/front/layout/header.php";
+        require_once __DIR__ . "/views/front/layout/navbar.php";
         $authController->login();
-        require_once __DIR__ . "/views/layout/footer.php";
+        require_once __DIR__ . "/views/front/layout/footer.php";
         exit;
 
     case 'logout':
@@ -50,18 +50,18 @@ switch ($route) {
         break;
 
     case 'history':
-        $page = "views/history.php";
+        $page = "views/front/history.php";
         break;
     default:
-        $page = "views/errors/404.php";
+        $page = "views/front/errors/404.php";
         break;
 }
 
-require_once __DIR__ . "/views/layout/header.php";
-require_once __DIR__ . "/views/layout/navbar.php";
+require_once __DIR__ . "/views/front/layout/header.php";
+require_once __DIR__ . "/views/front/layout/navbar.php";
 
 if ($page) {
     require_once __DIR__ . "/" . $page;
 }
 
-require_once __DIR__ . "/views/layout/footer.php";
+require_once __DIR__ . "/views/front/layout/footer.php";

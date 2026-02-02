@@ -23,20 +23,24 @@ class Auth
         return $this->userModel->create($data);
     }
 
-    public function login(string $email, string $password): bool
+    public function login(string $email, string $password): string
     {
         $user = $this->userModel->findByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
+
             $_SESSION['user'] = [
                 'id'        => $user['id'],
                 'name'      => $user['name'],
                 'email'     => $user['email'],
                 'user_type' => $user['user_type']
             ];
-            return true;
+            if($user['user_type']=="Patiant"){
+                return "Patiant";
+            }
+            return "Doctor";
         }
-        return false;
+        return "";
     }
 
     public function check(): bool
