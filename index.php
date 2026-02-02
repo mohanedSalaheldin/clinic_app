@@ -29,6 +29,9 @@ switch ($route) {
     case 'contact':
         $page = "views/front/contact.php";
         break;
+         case 'admin':
+        $page = "views/admin/home.php";
+        break;
 
 
     case 'register':
@@ -57,6 +60,20 @@ switch ($route) {
         break;
 }
 
+
+if($route == "admin" ){
+    require_once __DIR__ . "/views/admin/layout/header.php";
+    require_once __DIR__ . "/views/admin/layout/sidebar.php";
+    if ($page) {
+    require_once __DIR__ . "/" . $page;
+}
+
+require_once __DIR__ . "/views/admin/layout/footer.php";
+
+
+
+}
+else{
 require_once __DIR__ . "/views/front/layout/header.php";
 require_once __DIR__ . "/views/front/layout/navbar.php";
 
@@ -65,3 +82,4 @@ if ($page) {
 }
 
 require_once __DIR__ . "/views/front/layout/footer.php";
+}
