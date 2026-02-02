@@ -2,48 +2,40 @@
 
 namespace App;
 
+use App\Models\User;
 use PDO;
 
 class Auth
 {
-    private PDO $db;
+    private User $userModel;
 
     public function __construct(Database $database)
     {
-        $this->db = $database->getConnection();
-        session_start();
+        $this->userModel = new User($database->getConnection());
     }
 
-
-    public function register(string $name, string $email, string $password): bool
+    public function register(array $data): bool
     {
-        $hash = password_hash($password, PASSWORD_BCRYPT);
+        if ($this->userModel->findByEmail($data['email'])) {
+            return false;
+        }
 
-        $stmt = $this->db->prepare(
-            "INSERT INTO users (name, email, password) VALUES (?, ?, ?)"
-        );
-
-        return $stmt->execute([$name, $email, $hash]);
+        return $this->userModel->create($data);
     }
-
 
     public function login(string $email, string $password): bool
     {
-        $stmt = $this->db->prepare(
-            "SELECT * FROM users WHERE email = ?"
-        );
-        $stmt->execute([$email]);
-        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        $user = $this->userModel->findByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user'] = [
-                'id'    => $user['id'],
-                'name'  => $user['name'],
-                'email' => $user['email']
+                'id'        => $user['id'],
+                'name'      => $user['name'],
+                'email'     => $user['email'],
+                'user_type' => $user['user_type']
             ];
             return true;
         }
-
         return false;
     }
 
@@ -52,17 +44,16 @@ class Auth
         return isset($_SESSION['user']);
     }
 
-
     public function user(): ?array
     {
         return $_SESSION['user'] ?? null;
     }
 
-
     public function logout(): void
     {
+        unset($_SESSION['user']);
         session_destroy();
-        header("Location: login.php");
+        header("Location: index.php?route=login");
         exit;
     }
 }

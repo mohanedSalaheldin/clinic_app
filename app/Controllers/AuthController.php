@@ -14,48 +14,38 @@ class AuthController
         $this->auth = new Auth($db);
     }
 
-    public function showLogin()
-    {
-        require __DIR__ . '/../../views/auth/login.php';
-    }
-
     public function login()
     {
-        if ($this->auth->login($_POST['email'], $_POST['password'])) {
-            header("Location: /?route=dashboard");
-            exit;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            if ($this->auth->login($_POST['email'], $_POST['password'])) {
+                header("Location: index.php?route=home");
+                exit;
+            }
+            $error = "invaild data";
         }
-
-        $error = "Invalid credentials";
-        require __DIR__ . '/../../views/auth/login.php';
+        require __DIR__ . '/../../views/login.php';
     }
-
-    public function showRegister()
-    {
-        require __DIR__ . '/../../views/auth/register.php';
-    }
-
+    
     public function register()
     {
-        $this->auth->register(
-            $_POST['name'],
-            $_POST['email'],
-            $_POST['password']
-        );
+        $error = null;
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $data = [
+                'name'        => $_POST['name'],
+                'email'       => $_POST['email'],
+                'password'    => $_POST['password'],
+                'phone'       => $_POST['phone'],
+                'major_id'    => $_POST['major_id'] ?? null
+            ];
 
-        header("Location: /?route=login");
-        exit;
-    }
-
-    public function dashboard()
-    {
-        if (!$this->auth->check()) {
-            header("Location: /?route=login");
-            exit;
+            if ($this->auth->register($data)) {
+                header("Location: index.php?route=login");
+                exit;
+            } else {
+                $error = "Error: Email Used before";
+            }
         }
-
-        $user = $this->auth->user();
-        require __DIR__ . '/../../views/dashboard.php';
+        require __DIR__ . '/../../views/register.php';
     }
 
     public function logout()
