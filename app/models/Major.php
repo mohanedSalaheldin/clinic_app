@@ -7,59 +7,38 @@ use PDO;
 
 class Major
 {
-    private PDO $db;
-    private int $id;
+    private string $id;
     private string $name;
+    private PDO $db;
 
 
-    public function __construct(PDO $db,int $id,string $name )
-    {
+    public function __construct(PDO $db, string $name='')
+    {   
         $this->db = $db;
-        $this->id = $id;
         $this->name = $name;
     }
 
-    public function getId(){
+    public function getId(): ?int {
         return $this->id;
     }
-    public function getName(){
-        return $this->name;
-    }
-    public static function create(PDO $db,string $name){
-        $stmt = $db->prepare("INSERT INTO majors (name) VALUES (?)"); 
-        $success = $stmt->execute([$name]);
 
+    public  function create(): bool
+    {
+        $sql = "INSERT INTO majors (name) VALUES (:name)";
 
-        if($success){
-            $id = (int) $db->lastInsertId();
-            return new self($db,$id,$name);
+        $stmt = $this->db->prepare($sql);
+
+        if ($stmt->execute([':name' => $this->name])) {
+            $this->id = (int) $this->db->lastInsertId();
+            return true;
         }
-        return null;
-
+    
+        return false;
     }
 
-     public static function getAll(PDO $db){
-        $stmt = $db->query("SELECT * FROM majors"); 
-        $rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        $majors =[];
-       foreach($rows as $row){
-        $majors[]= new Major($db,$row['id'],$row['name']);
-       }
-       return $majors;
-
+    public static function getAllMajors(PDO $db) : array {
+        $stmt = $db->prepare("SELECT * FROM majors");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
     }
-
-
-     public static function getbyId(PDO $db,$id){
-        $stmt = $db->query("SELECT * FROM majors WHERE id= ?"); 
-        $stmt->execute([$id]);
-        $rows = $stmt->fetch(PDO::FETCH_ASSOC);
-        $majors =[];
-       foreach($rows as $row){
-        $majors[]= new Major($db,$row['id'],$row['name']);
-       }
-       return $majors;
-
-    }
-
 }

@@ -37,4 +37,10 @@ class User
         $stmt->execute([$email]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public static function getAllDoctors(PDO $db) : array {
+        $stmt = $db->prepare("SELECT * FROM users WHERE user_type = 'doctor'");
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC); 
+    }
 }
