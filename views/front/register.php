@@ -1,10 +1,5 @@
 <?php $title = 'Register'; ?>
 
-<?php if (isset($error)): ?>
-    <div class="alert alert-danger text-center">
-        <?= $error ?>
-    </div>
-<?php endif; ?>
 
 <div class="container">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fw-bold my-4 h4">
@@ -18,19 +13,19 @@
             <div class="form-items">
                 <div class="mb-3">
                     <label class="form-label required-label" for="name">Name</label>
-                    <input type="text" name="name" class="form-control" id="name" required>
+                    <input type="text" name="name" class="form-control" id="name">
                 </div>
                 <div class="mb-3">
                     <label class="form-label required-label" for="phone">Phone</label>
-                    <input type="tel" name="phone" class="form-control" id="phone" required>
+                    <input type="tel" name="phone" class="form-control" id="phone">
                 </div>
                 <div class="mb-3">
                     <label class="form-label required-label" for="email">Email</label>
-                    <input type="email" name="email" class="form-control" id="email" required>
+                    <input type="email" name="email" class="form-control" id="email">
                 </div>
                 <div class="mb-3">
                     <label class="form-label required-label" for="password">password</label>
-                    <input type="password" name="password" class="form-control" id="password" required>
+                    <input type="password" name="password" class="form-control" id="password">
                 </div>
 
                 <input type="hidden" name="major_id" value="0">
