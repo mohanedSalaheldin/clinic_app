@@ -1,10 +1,8 @@
-<?php $title = 'Login'; ?>
+<?php
+$title = 'Login'; 
+?>
 
-<?php if (isset($error)): ?>
-    <div class="alert alert-danger text-center">
-        <?= $error ?>
-    </div>
-<?php endif; ?>
+
 
 <div class="container">
     <nav style="--bs-breadcrumb-divider: '>';" aria-label="breadcrumb" class="fw-bold my-4 h4">

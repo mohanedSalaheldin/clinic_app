@@ -25,6 +25,8 @@ class Auth
 
     public function login(string $email, string $password): string
     {
+
+   
         $user = $this->userModel->findByEmail($email);
 
         if ($user && password_verify($password, $user['password'])) {
