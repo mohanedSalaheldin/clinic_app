@@ -1,3 +1,5 @@
+
+
 <?php
 session_start();
 require_once __DIR__ . "/vendor/autoload.php";
@@ -17,6 +19,7 @@ $db = Database::getInstance($config);
 $authController = new AuthController($db);
 
 $route = $_GET['route'] ?? 'home';
+
 
 
 $page = "";
@@ -41,17 +44,6 @@ switch ($route) {
          case 'admin/create-major':
         $page = "views/admin/major/create.php";
         break;
-
-        
-        //  case 'admin/store-major':
-        // $page = "app/Controllers/MajorController";
-        // break;
-
-    //     case 'admin/store-major':
-    // $majorController = new MajorController($db);
-    // $majorController->store();
-    // exit;
-
 
     case 'register':
         require_once __DIR__ . "/views/front/layout/header.php";
@@ -80,19 +72,32 @@ switch ($route) {
 }
 
 
-if($route == "admin" || "admin/create-major"){
-    require_once __DIR__ . "/views/admin/layout/header.php";
-    require_once __DIR__ . "/views/admin/layout/sidebar.php";
-    if ($page) {
-    require_once __DIR__ . "/" . $page;
+
+$route = $_GET['routeadmin'] ?? '';
+$page = "";
+
+
+switch ($route) {
+    case 'admin/home':
+        $page = "views/admin/home.php";
+        break;
+
+    case 'admin/create-major':
+        $page = "views/admin/major/create.php";
+        break;
+    case 'admin/store-major':
+        $page = "app/Controllers/MajorController";
+        break;
+
+          default:
+        $page = "";
+        break;
+
 }
 
-require_once __DIR__ . "/views/admin/layout/footer.php";
 
 
-
-}
-else{
+if($route){
 require_once __DIR__ . "/views/front/layout/header.php";
 require_once __DIR__ . "/views/front/layout/navbar.php";
 
@@ -101,5 +106,18 @@ if ($page) {
 }
 
 require_once __DIR__ . "/views/front/layout/footer.php";
+
+
+}
+elseif($route){
+
+    require_once __DIR__ . "/views/admin/layout/header.php";
+    require_once __DIR__ . "/views/admin/layout/sidebar.php";
+    if ($page) {
+        
+    require_once __DIR__ . "/" . $page;
 }
 
+require_once __DIR__ . "/views/admin/layout/footer.php";
+
+}
