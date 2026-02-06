@@ -37,7 +37,6 @@ class AuthController
 
         return [
             'view' => 'views/front/login.php',
-
         ];
     }
 

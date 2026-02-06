@@ -29,7 +29,7 @@ $majors = Major::getAllMajors($db);
                             alt="major">
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center"> <?= htmlspecialchars($major['name']) ?> </h4>
-                            <a href="./doctors/index.html" class="btn btn-outline-primary card-button">Browse Doctors</a>
+                            <a href="index.php?route=major-doctors&id=<?= $major['id'] ?>" class="btn btn-outline-primary card-button">Browse Doctors</a>
                         </div>
                     </div>
                 <?php endforeach; ?>

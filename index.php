@@ -8,9 +8,16 @@ use App\models\Errors;
 
 use App\Database;
 use App\Controllers\AuthController;
+use App\Controllers\DoctorController;
+use App\Controllers\AppointmentController;
+
+
 
 $db = Database::getInstance($config);
+$doctorController = new DoctorController($db);
 $authController = new AuthController($db);
+
+$doctors = [];
 
 $route = $_GET['route'] ?? 'home';
 $page  = null;
@@ -25,9 +32,26 @@ switch ($route) {
         $page = "views/front/majors.php";
         break;
 
-    case 'doctors':
-        $page = "views/front/doctors.php";
-        break;
+        case 'doctors':
+            $doctors = $doctorController->getAllDoctors();
+            $page = "views/front/doctors.php";
+            break;
+    
+        case 'major-doctors':
+            $majorId = $_GET['id'] ?? null;
+            if ($majorId) {
+                $doctors = $doctorController->getDoctorsByMajor($majorId);
+                $page = "views/front/doctors.php";
+            } else {
+                $page = "views/front/home.php";
+            }
+            break;
+
+            case 'appointment':
+                $appointmentController = new AppointmentController($db);
+                $page = $appointmentController->book();
+                
+                break;
 
     case 'contact':
         $page = "views/front/contact.php";
