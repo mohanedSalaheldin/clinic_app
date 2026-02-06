@@ -52,7 +52,7 @@ $majors = Major::getAllMajors($db);
                         <div class="card-body d-flex flex-column gap-1 justify-content-center">
                             <h4 class="card-title fw-bold text-center"><?= htmlspecialchars($doctor['name']) ?></h4>
                             <h6 class="card-title text-secondary text-center"><?= htmlspecialchars($doctor['major_name'] ?? 'General') ?></h6>
-                            <a href="index.php?route=appointment" class="btn btn-outline-primary card-button">Book an appointment</a>
+                            <a href="index.php?route=appoinment&doctor_id=<?= $doctor['id'] ?>" class="btn btn-outline-primary card-button">Book an appointment</a>
                         </div>
                     </div>
                 <?php endforeach; ?>

@@ -3,6 +3,7 @@ session_start();
 
 require_once __DIR__ . "/vendor/autoload.php";
 require_once __DIR__ . "/config.php";
+
 use App\models\Errors;
 
 
@@ -20,6 +21,7 @@ $authController = new AuthController($db);
 $doctors = [];
 
 $route = $_GET['route'] ?? 'home';
+
 $page  = null;
 
 switch ($route) {
@@ -32,26 +34,31 @@ switch ($route) {
         $page = "views/front/majors.php";
         break;
 
-        case 'doctors':
-            $doctors = $doctorController->getAllDoctors();
-            $page = "views/front/doctors.php";
-            break;
-    
-        case 'major-doctors':
-            $majorId = $_GET['id'] ?? null;
-            if ($majorId) {
-                $doctors = $doctorController->getDoctorsByMajor($majorId);
-                $page = "views/front/doctors.php";
-            } else {
-                $page = "views/front/home.php";
-            }
-            break;
+    case 'doctors':
+        $doctors = $doctorController->getAllDoctors();
+        $page = "views/front/doctors.php";
+        break;
 
-            case 'appointment':
-                $appointmentController = new AppointmentController($db);
-                $page = $appointmentController->book();
-                
-                break;
+    case 'major-doctors':
+        $majorId = $_GET['id'] ?? null;
+        if ($majorId) {
+            $doctors = $doctorController->getDoctorsByMajor($majorId);
+            $page = "views/front/doctors.php";
+        } else {
+            $page = "views/front/home.php";
+        }
+        break;
+
+    case 'appoinment':
+        $appointmentController = new AppointmentController($db);
+        $page = 'views/front/appointment.php';
+
+        break;
+    case 'appoinment-store':
+        $appointmentController = new AppointmentController($db);
+        $appointmentController->book();
+
+        break;
 
     case 'contact':
         $page = "views/front/contact.php";
@@ -70,13 +77,13 @@ switch ($route) {
         break;
 
     case 'login':
-      $result = $authController->login();
-    $page   = $result['view'];
-break;
+        $result = $authController->login();
+        $page   = $result['view'];
+        break;
     case 'register':
-         $result = $authController->register();
-    $page   = $result['view'];
-break;
+        $result = $authController->register();
+        $page   = $result['view'];
+        break;
 
     case 'logout':
         $authController->logout();
@@ -93,12 +100,10 @@ if ($isAdmin) {
     require_once "views/admin/layout/header.php";
     require_once "views/admin/layout/sidebar.php";
     Errors::GetMessage();
-
 } else {
     require_once "views/front/layout/header.php";
     require_once "views/front/layout/navbar.php";
     Errors::GetMessage();
-
 }
 
 if ($page && file_exists($page)) {

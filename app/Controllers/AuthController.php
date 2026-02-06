@@ -18,6 +18,8 @@ class AuthController
 
     public function login()
     {
+
+       
         $error = null;
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $loginResult = $this->auth->login($_POST['email'], $_POST['password']);

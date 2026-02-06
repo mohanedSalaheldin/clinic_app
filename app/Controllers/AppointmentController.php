@@ -15,7 +15,9 @@ class AppointmentController
     }
 
     public function book()
+
     {
+       
         $message = null;
 
         if (!isset($_SESSION['user'])) {
@@ -33,6 +35,7 @@ class AppointmentController
             }
         }
 
-        return 'views/front/appointment.php';
+        header("Location: index.php?route=home");
+        exit;
     }
 }

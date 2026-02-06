@@ -35,6 +35,7 @@ class Auth
                 'id'        => $user['id'],
                 'name'      => $user['name'],
                 'email'     => $user['email'],
+                'phone'     => $user['phone'],
                 'user_type' => $user['user_type']
             ];
             if($user['user_type']=="Patiant"){
