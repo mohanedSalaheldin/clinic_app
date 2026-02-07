@@ -262,3 +262,35 @@ require_once __DIR__ . "/views/admin/layout/footer.php";
 // require_once __DIR__ . "/views/front/layout/footer.php";
 // }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

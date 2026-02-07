@@ -87,6 +87,10 @@ case 'doctor-dashboard/toggle-status':
         $page = "views/admin/major/create.php";
         break;
 
+         case 'admin-users':
+        $page = "views/admin/users.php";
+        break;
+
     case 'login':
         $page = $authController->login();
 
