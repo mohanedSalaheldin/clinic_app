@@ -30,16 +30,19 @@ class AuthController
             } else if ($loginResult == "Doctor") {
                 header("Location: index.php?route=contact");
                 exit;
-            } else if ($loginResult == "") {
+            } else if ($loginResult == "Admin") {
+                header("Location: index.php?route=admin");
+                exit;
+            } else if ($loginResult == null) {
                 Errors::SetMessage("Invalid Data", "danger");
                 header("Location: index.php?route=login");
                 exit;
             }
         }
 
-        return [
-            'view' => 'views/front/login.php',
-        ];
+        return 
+             'views/front/login.php';
+    
     }
 
     public function register()
@@ -61,7 +64,7 @@ class AuthController
             ];
 
 
-            $errors = Validation::RegisterValidation($name, $email, $phone, $password,);
+            $errors = Validation::RegisterValidation($name, $email, $phone, $password);
 
             if ($this->auth->register($data)) {
                 header("Location: index.php?route=login");
@@ -73,10 +76,7 @@ class AuthController
         }
         // require __DIR__ . '/../../views/front/register.php';
 
-        return [
-            'view' => 'views/front/register.php',
-
-        ];
+        return 'views/front/register.php';
     }
 
     public function logout()
