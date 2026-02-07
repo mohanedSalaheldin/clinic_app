@@ -11,12 +11,14 @@ use App\Database;
 use App\Controllers\AuthController;
 use App\Controllers\DoctorController;
 use App\Controllers\AppointmentController;
+use App\Controllers\UserController;
 
 
 
 $db = Database::getInstance($config);
 $doctorController = new DoctorController($db);
 $authController = new AuthController($db);
+$userController = new UserController($db);
 
 $doctors = [];
 
@@ -57,19 +59,18 @@ switch ($route) {
     case 'appoinment-store':
         $appointmentController = new AppointmentController($db);
         $appointmentController->book();
-
         break;
 
-case 'doctor-dashboard':
-    $doctorController = new \App\Controllers\DoctorController($db);
-    $doctorController->dashboard();
-    $page = null; 
-    break;
+    case 'doctor-dashboard':
+        $doctorController = new \App\Controllers\DoctorController($db);
+        $doctorController->dashboard();
+        $page = null;
+        break;
 
-case 'doctor-dashboard/toggle-status':
-    $doctorController = new \App\Controllers\DoctorController($db);
-    $doctorController->toggleStatus();
-    break;
+    case 'doctor-dashboard/toggle-status':
+        $doctorController = new \App\Controllers\DoctorController($db);
+        $doctorController->toggleStatus();
+        break;
 
     case 'contact':
         $page = "views/front/contact.php";
@@ -87,8 +88,18 @@ case 'doctor-dashboard/toggle-status':
         $page = "views/admin/major/create.php";
         break;
 
-         case 'admin-users':
-        $page = "views/admin/users.php";
+    case 'admin-users':
+        $page = "views/admin/users/index.php";
+        break;
+
+    case 'admin-users-edit':
+
+        $page = "views/admin/users/edit.php";
+        break;
+
+    case 'admin-users-update':
+        $userController->update();
+        $page = null;
         break;
 
     case 'login':
@@ -105,7 +116,7 @@ case 'doctor-dashboard/toggle-status':
         exit;
 
     default:
-        $page = "views/front/home.php"; 
+        $page = "views/front/home.php";
         break;
 }
 
