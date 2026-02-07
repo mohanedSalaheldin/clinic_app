@@ -19,6 +19,7 @@ $db = Database::getInstance($config);
 $doctorController = new DoctorController($db);
 $authController = new AuthController($db);
 $userController = new UserController($db);
+$appointmentController = new AppointmentController($db);
 
 $doctors = [];
 
@@ -57,18 +58,17 @@ switch ($route) {
 
         break;
     case 'appoinment-store':
-        $appointmentController = new AppointmentController($db);
+
         $appointmentController->book();
         break;
 
     case 'doctor-dashboard':
-        $doctorController = new \App\Controllers\DoctorController($db);
+       
         $doctorController->dashboard();
         $page = null;
         break;
 
     case 'doctor-dashboard/toggle-status':
-        $doctorController = new \App\Controllers\DoctorController($db);
         $doctorController->toggleStatus();
         break;
 
@@ -100,6 +100,14 @@ switch ($route) {
     case 'admin-users-update':
         $userController->update();
         $page = null;
+        break;
+    case 'admin-users-delete':
+        $userController->delete();
+       
+        break;
+
+        case 'admin-appoinment':
+        $page = "views/admin/appoinments/appoinments.php";
         break;
 
     case 'login':
@@ -134,7 +142,12 @@ if ($isAdmin || $isDoctor) {
     Errors::GetMessage();
 }
 
+
+
+
 if ($page && file_exists($page)) {
+
+
     require_once $page;
 } else {
     echo "Page not found";
@@ -145,3 +158,15 @@ if ($isAdmin) {
 } else {
     require_once "views/front/layout/footer.php";
 }
+
+
+
+
+
+
+
+
+
+
+
+

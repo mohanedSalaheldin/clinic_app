@@ -2,14 +2,15 @@
 
 namespace App;
 
-use App\Controllers\UserController;
+use App\Controllers\AppointmentController;
 use App\Database;
+use App\Models\Appointment;
 use PDO;
 
 
 $db = Database::getInstance($config);
-$userController = new UserController($db);
-$users =  $userController->getUsers();
+$appointsController =new Appointment($db->getConnection());
+$appoints =  $appointsController->getAppoinments();
 
 
 ?>
@@ -40,28 +41,28 @@ $users =  $userController->getUsers();
                 <th scope="col">#ID</th>
                 <th scope="col">Name</th>
                 <th scope="col">Email</th>
-                <th scope="col">Type</th>
+                <th scope="col">Date</th>
                 <th scope="col">Phone</th>
               </tr>
             </thead>
             <tbody>
-              <?php if (!empty($users)): ?>
-                <?php foreach ($users as $user): ?>
+              <?php if (!empty($appoints)): ?>
+                <?php foreach ($appoints as $appoint): ?>
                   <tr>
-                    <th scope="row"><?= $user['id'] ?></th>
-                    <td><?= htmlspecialchars($user['name']) ?></td>
-                    <td><?= htmlspecialchars($user['email']) ?></td>
+                    <th scope="row"><?= $appoint['id'] ?></th>
+                    <td><?= htmlspecialchars($appoint['name']) ?></td>
+                    <td><?= htmlspecialchars($appoint['email']) ?></td>
                     <td>
                       <span>
-                        <?= htmlspecialchars($user['user_type']) ?>
+                        <?= htmlspecialchars($appoint['date_time']) ?>
                       </span>
                     </td>
-                    <td><?= htmlspecialchars($user['phone']) ?></td>
+                    <td><?= htmlspecialchars($appoint['phone']) ?></td>
                     <td>
                       
-                      <a class="edit-btn btn btn-secondary" href="index.php?route=admin-users-edit&user_id=<?= $user['id'] ?>">Edit</a>
-                      <form method="POST" action="index.php?route=admin-users-delete&user_id=<?= $user['id']?>">
-                                <input type="hidden" name ="id" value="<?= $user['id'] ?>">
+                      <a class="edit-btn btn btn-secondary" href="index.php?route=admin-users-edit&user_id=<?= $appoint['id'] ?>">Edit</a>
+                      <form method="POST" action="index.php?route=admin-users-delete&user_id=<?= $appoint['id']?>">
+                                <input type="hidden" name ="id" value="<?= $appoint['id'] ?>">
                                 <button class="btn btn-danger btn-sm" >Delete</button>
 
                             </form>

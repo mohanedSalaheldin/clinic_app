@@ -26,7 +26,7 @@ class UserController
 
   public function getUserByID($id)
   {
-    var_dump("getUserByID");
+   // var_dump("getUserByID");
     $stmt = $this->db->prepare("SELECT * FROM users WHERE id=$id");
     $stmt->execute();
     return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -55,5 +55,23 @@ class UserController
     }else{
       Errors::SetMessage("Failed to update", "danger");
     }
+  }
+
+
+  public function delete(){
+
+    $data = $_POST;
+    $stmt = $this->db->prepare("DELETE from users WHERE id = :id;");
+
+      $reuslt = $stmt->execute([ 
+      ':id'  => $data['id'],
+    ]);
+    if ($reuslt) {
+      header("Location: index.php?route=admin-users");
+      exit;
+    }else{
+      Errors::SetMessage("Failed to update", "danger");
+    }
+
   }
 }

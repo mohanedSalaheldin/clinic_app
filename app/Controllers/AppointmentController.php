@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\Database;
 use App\Models\Appointment;
+use PDO;
 
 class AppointmentController
 {
@@ -37,5 +38,25 @@ class AppointmentController
 
         header("Location: index.php?route=home");
         exit;
+    }
+
+    public function getAllAppoint(){
+            // $appointmentModel = new Appointment($this->db);
+          
+            // $res = $appointmentModel->getAppoinments();
+             $sql = "SELECT * FROM appointments";
+  
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        $res= $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            if($res){
+                 header("Location: index.php?route=admin-appoinment");
+        exit;
+            }else{
+              header("Location: index.php?route=admin");
+              exit;
+            }
+            return null;
     }
 }

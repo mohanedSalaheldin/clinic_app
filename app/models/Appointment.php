@@ -50,4 +50,14 @@ class Appointment
         $stmt = $this->db->prepare($sql);
         return $stmt->execute([':status' => $status, ':id' => $id]);
     }
+
+     public function getAppoinments(): array
+    {
+        $sql = "SELECT * FROM appointments";
+  
+        $stmt = $this->db->prepare($sql);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }
