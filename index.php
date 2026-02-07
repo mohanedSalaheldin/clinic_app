@@ -77,12 +77,12 @@ switch ($route) {
         break;
 
     case 'login':
-        $result = $authController->login();
-        $page   = $result['view'];
+        $page = $authController->login();
+
         break;
     case 'register':
-        $result = $authController->register();
-        $page   = $result['view'];
+        $page = $authController->register();
+
         break;
 
     case 'logout':

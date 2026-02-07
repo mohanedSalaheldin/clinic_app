@@ -23,7 +23,7 @@ class Auth
         return $this->userModel->create($data);
     }
 
-    public function login(string $email, string $password): string
+    public function login(string $email, string $password): ?string
     {
 
    
@@ -38,12 +38,9 @@ class Auth
                 'phone'     => $user['phone'],
                 'user_type' => $user['user_type']
             ];
-            if($user['user_type']=="Patiant"){
-                return "Patiant";
-            }
-            return "Doctor";
+            return $user['user_type'] ?? null;
         }
-        return "";
+        return null;
     }
 
     public function check(): bool
