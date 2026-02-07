@@ -28,7 +28,7 @@ class AuthController
                 header("Location: index.php?route=home");
                 exit;
             } else if ($loginResult == "Doctor") {
-                header("Location: index.php?route=contact");
+                header("Location: index.php?route=doctor-dashboard");
                 exit;
             } else if ($loginResult == "Admin") {
                 header("Location: index.php?route=admin");

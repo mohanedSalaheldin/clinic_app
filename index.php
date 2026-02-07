@@ -60,6 +60,17 @@ switch ($route) {
 
         break;
 
+case 'doctor-dashboard':
+    $doctorController = new \App\Controllers\DoctorController($db);
+    $doctorController->dashboard();
+    $page = null; 
+    break;
+
+case 'doctor-dashboard/toggle-status':
+    $doctorController = new \App\Controllers\DoctorController($db);
+    $doctorController->toggleStatus();
+    break;
+
     case 'contact':
         $page = "views/front/contact.php";
         break;
@@ -90,14 +101,16 @@ switch ($route) {
         exit;
 
     default:
-        $page = "views/front/home.php"; // أو اعمل 404 حقيقي
+        $page = "views/front/home.php"; 
         break;
 }
 
 $isAdmin = strpos($route, 'admin') === 0;
+$isDoctor = strpos($route, 'doctor-dashboard') === 0;
 
-if ($isAdmin) {
+if ($isAdmin || $isDoctor) {
     require_once "views/admin/layout/header.php";
+    // $isDoctor ? null:require_once "views/admin/layout/sidebar.php";
     require_once "views/admin/layout/sidebar.php";
     Errors::GetMessage();
 } else {
